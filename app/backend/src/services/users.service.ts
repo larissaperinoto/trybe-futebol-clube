@@ -1,8 +1,17 @@
-// import User from '../database/models/user.model';
+import User from '../database/models/user.model';
 import ILogin from '../interfaces/ILogin';
 import tokenGenerate from '../utils/tokenGenerate';
-// import ErrorGenerate from '../utils/errorGenerate';
+import ErrorGenerate from '../utils/errorGenerate';
 
-const login = async (user: ILogin) => tokenGenerate(user);
+export default class UserService {
+  login = async (user: ILogin) => {
+    const userExists = await User
+      .findOne({ where: { email: user.email, password: user.password } });
 
-export default { login };
+    if (!userExists) {
+      throw new ErrorGenerate(401, 'Incorrect email or password');
+    }
+
+    return tokenGenerate(user);
+  };
+}

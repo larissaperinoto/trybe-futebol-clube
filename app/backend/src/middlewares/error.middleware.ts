@@ -1,8 +1,7 @@
-import { NextFunction, Request, Response } from 'express';
-import ErrorGenerate from '../utils/errorGenerate';
+import { ErrorRequestHandler } from 'express';
 
-const errorMiddleware = (err: Error, req: Request, res: Response, _next: NextFunction) => {
-  const { status, message } = err as ErrorGenerate;
+const errorMiddleware: ErrorRequestHandler = (err, _req, res, _next) => {
+  const { status, message } = err;
   return res.status(status).json({ message });
 };
 

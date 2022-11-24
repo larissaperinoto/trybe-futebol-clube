@@ -1,11 +1,15 @@
-import { Request, Response } from 'express';
-import usersService from '../services/users.service';
+import { NextFunction, Request, Response } from 'express';
+import UsersService from '../services/users.service';
+
+const userService = new UsersService();
 
 export default class UserController {
-  // eslint-disable-next-line class-methods-use-this
-  async login(req: Request, res: Response) {
-    console.log(req.body);
-    const token = await usersService.login(req.body);
-    res.status(200).json(token);
-  }
+  login = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const token = await userService.login(req.body);
+      return res.status(200).json({ token });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

@@ -5,6 +5,10 @@ const route = express.Router();
 
 const userController = new UsersController();
 
-route.post('/', (req: express.Request, res: express.Response) => userController.login(req, res));
+route.post('/', (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction,
+) => userController.login(req, res, next));
 
 export default route;
