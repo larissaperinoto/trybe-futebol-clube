@@ -5,10 +5,8 @@ import chaiHttp = require('chai-http');
 
 import App from '../app';
 import teamsMock from './mocks/teams.mock';
-import token from './mocks/token.mock';
 
 import { Response } from 'superagent';
-import * as jsonwebtoken from 'jsonwebtoken';
 import Team from '../database/models/teams.model';
 
 chai.use(chaiHttp);

@@ -1,7 +1,6 @@
 /* eslint-disable import/no-cycle */
 import { Model, INTEGER, STRING } from 'sequelize';
 import db from '.';
-import Match from './matches.model';
 
 class Team extends Model {
   declare id: number;
@@ -25,11 +24,5 @@ Team.init({
   modelName: 'teams',
   timestamps: false,
 });
-
-Team.hasMany(Match, { foreignKey: 'homeTeam' });
-Team.hasMany(Match, { foreignKey: 'awayTeam' });
-
-Match.belongsTo(Team, { foreignKey: 'homeTeam' });
-Match.belongsTo(Team, { foreignKey: 'awayTeam' });
 
 export default Team;
