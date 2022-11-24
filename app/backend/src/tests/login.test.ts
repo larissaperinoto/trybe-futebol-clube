@@ -33,7 +33,7 @@ describe('Testa o método POST na rota /login', () => {
             .post('/login')
             .send({
               email: 'admin@admin.com',
-              password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW'
+              password: 'secret_admin'
             });
 
 
@@ -48,7 +48,7 @@ describe('Testa o método POST na rota /login', () => {
             .post('/login')
             .send({
               email: 'admin@teste.com',
-              password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.Pw'
+              password: 'secret_admin'
             });
 
     expect(response.status).to.be.equal(401);
@@ -60,7 +60,7 @@ describe('Testa o método POST na rota /login', () => {
             .request(app)
             .post('/login')
             .send({
-              password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.Pw'
+              password: 'secret_admin'
             });
 
     expect(response.status).to.be.equal(400);
