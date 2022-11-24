@@ -42,19 +42,6 @@ describe('Testa o método POST na rota /login', () => {
 
   });
 
-  it('Usuário não está cadastrado', async () => {
-    const response = await chai
-            .request(app)
-            .post('/login')
-            .send({
-              email: 'admin@teste.com',
-              password: 'secret_admin'
-            });
-
-    expect(response.status).to.be.equal(401);
-    expect(response.body).to.be.deep.equal({ message: 'Incorrect email or password' });
-  });
-
   it('Usuário não informa o campo "email"', async () => {
     const response = await chai
             .request(app)
@@ -77,5 +64,31 @@ describe('Testa o método POST na rota /login', () => {
 
     expect(response.status).to.be.equal(400);
     expect(response.body).to.be.deep.equal({ message: 'All fields must be filled' });
+  });
+
+  it('Usuário não informa email válido', async () => {
+    const response = await chai
+            .request(app)
+            .post('/login')
+            .send({
+              email: 'admin@teste.com',
+              password: 'secret_admin'
+            });
+
+    expect(response.status).to.be.equal(401);
+    expect(response.body).to.be.deep.equal({ message: 'Incorrect email or password' });
+  });
+
+  it('Usuário não informa senha válida', async () => {
+    const response = await chai
+            .request(app)
+            .post('/login')
+            .send({
+              email: 'admin@teste.com',
+              password: 'password'
+            });
+
+    expect(response.status).to.be.equal(401);
+    expect(response.body).to.be.deep.equal({ message: 'Incorrect email or password' });
   });
 });
