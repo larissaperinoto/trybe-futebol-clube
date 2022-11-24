@@ -4,12 +4,16 @@ import validateLogin from '../middlewares/login.middleware';
 
 const route = express.Router();
 
-const userController = new UsersController();
+route.get('/validate', (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction,
+) => UsersController.findRole(req, res, next));
 
 route.post('/', validateLogin, (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction,
-) => userController.login(req, res, next));
+) => UsersController.login(req, res, next));
 
 export default route;
