@@ -5,8 +5,19 @@ export default class MatchesService {
   public static async findAll() {
     const matches = await Matche.findAll({
       include: [
-        { model: Team, as: 'homeMatchBelongsTo', attributes: { exclude: ['id'] } },
-        { model: Team, as: 'awayMatchBelongsTo', attributes: { exclude: ['id'] } },
+        { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
+        { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
+      ],
+    });
+    return matches;
+  }
+
+  public static async findByInProgessMatches(query: boolean) {
+    const matches = await Matche.findAll({
+      where: { inProgress: query },
+      include: [
+        { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
+        { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
       ],
     });
     return matches;
