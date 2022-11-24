@@ -47,11 +47,35 @@ describe('Testa o método POST na rota /login', () => {
             .request(app)
             .post('/login')
             .send({
-              email: 'admin.com',
+              email: 'admin@teste.com',
               password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.Pw'
             });
 
     expect(response.status).to.be.equal(401);
     expect(response.body).to.be.deep.equal({ message: 'Incorrect email or password' });
+  });
+
+  it('Usuário não informa o campo "email"', async () => {
+    const response = await chai
+            .request(app)
+            .post('/login')
+            .send({
+              password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.Pw'
+            });
+
+    expect(response.status).to.be.equal(400);
+    expect(response.body).to.be.deep.equal({ message: 'All fields must be filled' });
+  });
+
+  it('Usuário não informa o campo "password"', async () => {
+    const response = await chai
+            .request(app)
+            .post('/login')
+            .send({
+              email: 'admin@admin.com',
+            });
+
+    expect(response.status).to.be.equal(400);
+    expect(response.body).to.be.deep.equal({ message: 'All fields must be filled' });
   });
 });
