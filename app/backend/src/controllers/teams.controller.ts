@@ -10,4 +10,13 @@ export default class UserController {
       next(error);
     }
   }
+
+  public static async findByPk(req: Request, res: Response, next: NextFunction) {
+    try {
+      const team = await TeamService.findByPk(req.params.id as unknown as number);
+      return res.status(200).json(team);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
