@@ -12,7 +12,7 @@ export default class MatchesService {
     return matches;
   }
 
-  public static async findByInProgessMatches(query: boolean) {
+  public static async search(query: boolean) {
     const matches = await Matche.findAll({
       where: { inProgress: query },
       include: [
