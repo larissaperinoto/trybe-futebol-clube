@@ -15,8 +15,13 @@ export default class MatchesController {
     }
   }
 
-  public static async insert(req: Request, res: Response, _next: NextFunction) {
-    const matchInserted = await MatchesService.insert(req.body);
-    return res.status(201).json(matchInserted);
+  public static async insert(req: Request, res: Response, next: NextFunction) {
+    try {
+      const matchInserted = await MatchesService
+        .insert(req.body, req.headers.authorization as string);
+      return res.status(201).json(matchInserted);
+    } catch (error) {
+      next(error);
+    }
   }
 }

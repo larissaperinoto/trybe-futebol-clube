@@ -7,6 +7,5 @@ type JWT = {
 export default function tokenValidate(token: string) {
   const secret = process.env.JWT_SECRET as string;
   const credentials = jsonwebtoken.verify(token, secret);
-  console.log(credentials);
   return credentials as JWT;
 }

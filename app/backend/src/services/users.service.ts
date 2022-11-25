@@ -24,6 +24,5 @@ export default class UserService {
         return { role: userInformation.role };
       }
     }
-    throw new ErrorGenerate(401, 'Unauthorized user');
   }
 }

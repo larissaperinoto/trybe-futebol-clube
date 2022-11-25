@@ -1,6 +1,7 @@
 import Team from '../database/models/teams.model';
 import Match from '../database/models/matches.model';
 import IMatch from '../interfaces/IMatch';
+import tokenValidate from '../utils/validations/token.validate';
 
 export default class MatchesService {
   public static async findAll() {
@@ -26,8 +27,11 @@ export default class MatchesService {
     return matches;
   }
 
-  public static async insert(match: IMatch) {
-    const matchInserted = await Match.create({ ...match });
-    return matchInserted;
+  public static async insert(match: IMatch, token: string) {
+    const { email } = tokenValidate(token);
+    if (email) {
+      const matchInserted = await Match.create({ ...match, inProgress: true });
+      return matchInserted;
+    }
   }
 }
