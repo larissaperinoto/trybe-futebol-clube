@@ -9,4 +9,10 @@ route.get('/', (
   next: express.NextFunction,
 ) => MatchesController.findAll(req, res, next));
 
+route.post('/', (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction,
+) => MatchesController.insert(req, res, next));
+
 export default route;
