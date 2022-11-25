@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import TeamsService from '../services/teams.service';
 
-export default class UserController {
+export default class TeamsController {
   public static async findAll(req: Request, res: Response, next: NextFunction) {
     try {
       const teams = await TeamsService.findAll();

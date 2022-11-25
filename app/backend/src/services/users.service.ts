@@ -9,7 +9,6 @@ export default class UserService {
   public static async login(user: ILogin) {
     const userExists = await User
       .findOne({ where: { email: user.email } });
-
     if (userExists && bcrypt.compareSync(user.password, userExists.password)) {
       return tokenGenerate(user);
     }

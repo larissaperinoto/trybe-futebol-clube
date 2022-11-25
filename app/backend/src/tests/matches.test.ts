@@ -15,7 +15,7 @@ const { app } = new App();
 
 const { expect } = chai;
 
-describe('Testa a rota /teams', () => {
+describe('Testa a rota /matches', () => {
 
   let response: Response;
 
@@ -33,6 +33,23 @@ describe('Testa a rota /teams', () => {
 
       expect(response.status).to.be.equal(200);
       expect(response.body).to.be.deep.equal(matchesMock);
+    });
+  });
+
+  describe('Testa método GET na rota /matches?inProgress=true', () => {
+    it('Usuário consegue obter todas as partidas que estão em progresso', async () => {
+
+      const matchesInProgress = matchesMock.filter((match) => match.inProgress === true);
+
+      sinon.stub(Match, "findAll").resolves(matchesInProgress as unknown as Match[]);
+
+      const response = await chai
+              .request(app)
+              .get('/matches?inProgress=true');
+
+
+      expect(response.status).to.be.equal(200);
+      expect(response.body).to.be.deep.equal(matchesInProgress);
     });
   });
 });
