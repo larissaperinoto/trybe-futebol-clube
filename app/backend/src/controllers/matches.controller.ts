@@ -25,10 +25,19 @@ export default class MatchesController {
     }
   }
 
+  public static async matchIsOver(req: Request, res: Response, next: NextFunction) {
+    try {
+      await MatchesService.matchIsOver(Number(req.params.id));
+      return res.status(201).json({ message: 'Finished' });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   public static async update(req: Request, res: Response, next: NextFunction) {
     try {
-      await MatchesService.update(Number(req.params.id));
-      return res.status(201).json({ message: 'Finished' });
+      await MatchesService.update(Number(req.params.id), req.body);
+      return res.status(200).json({ message: 'Match is updated!' });
     } catch (error) {
       next(error);
     }

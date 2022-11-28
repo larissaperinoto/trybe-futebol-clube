@@ -4,6 +4,8 @@ import IMatch from '../interfaces/IMatch';
 import tokenValidate from '../utils/validations/token.validate';
 import ErrorGenerate from '../utils/errorGenerate';
 
+type MatchGoals = { homeTeamGoals: string, awayTeamGoals: string };
+
 export default class MatchesService {
   public static async findAll() {
     const matches = await Match.findAll({
@@ -48,10 +50,16 @@ export default class MatchesService {
     throw new ErrorGenerate(401, 'Token must be a valid token');
   }
 
-  public static async update(id: number) {
-    console.log(id);
+  public static async matchIsOver(id: number) {
     await Match.update(
       { inProgress: false },
+      { where: { id } },
+    );
+  }
+
+  public static async update(id: number, match: MatchGoals) {
+    await Match.update(
+      { homeTeamGoals: match.homeTeamGoals, awayTeamGoals: match.awayTeamGoals },
       { where: { id } },
     );
   }
