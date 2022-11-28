@@ -7,8 +7,10 @@ import ErrorGenerate from '../utils/errorGenerate';
 type MatchGoals = { homeTeamGoals: string, awayTeamGoals: string };
 
 export default class MatchesService {
-  public static async findAll() {
-    const matches = await Match.findAll({
+  constructor(private _matchModel = Match) {}
+
+  async findAll(): Promise<IMatch[]> {
+    const matches = await this._matchModel.findAll({
       include: [
         { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
         { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
@@ -17,8 +19,8 @@ export default class MatchesService {
     return matches;
   }
 
-  public static async findWithWhere(query: boolean) {
-    const matches = await Match.findAll({
+  async findWithWhere(query: boolean): Promise<IMatch[]> {
+    const matches = await this._matchModel.findAll({
       where: {
         inProgress: query,
       },
@@ -30,35 +32,34 @@ export default class MatchesService {
     return matches;
   }
 
-  public static async insert(match: IMatch, token: string) {
+  async insert(match: IMatch, token: string): Promise<IMatch> {
     const { email } = tokenValidate(token);
     if (email) {
       const verifyTeamsIds = match.homeTeam === match.awayTeam;
       if (verifyTeamsIds) {
         throw new ErrorGenerate(422, 'It is not possible to create a match with two equal teams');
       }
-      const homeTeamExists = await Match.findByPk(match.homeTeam);
-      const awayTeamExists = await Match.findByPk(match.awayTeam);
-      console.log(awayTeamExists);
+      const homeTeamExists = await this._matchModel.findByPk(match.homeTeam);
+      const awayTeamExists = await this._matchModel.findByPk(match.awayTeam);
       if (!homeTeamExists || !awayTeamExists) {
         throw new ErrorGenerate(404, 'There is no team with such id!');
       }
-      const matchInserted = await Match.create({ ...match, inProgress: true });
+      const matchInserted = await this._matchModel.create({ ...match, inProgress: true });
       return matchInserted;
     }
 
     throw new ErrorGenerate(401, 'Token must be a valid token');
   }
 
-  public static async matchIsOver(id: number) {
-    await Match.update(
+  async matchIsOver(id: number): Promise<void> {
+    await this._matchModel.update(
       { inProgress: false },
       { where: { id } },
     );
   }
 
-  public static async update(id: number, match: MatchGoals) {
-    await Match.update(
+  async update(id: number, match: MatchGoals): Promise<void> {
+    await this._matchModel.update(
       { homeTeamGoals: match.homeTeamGoals, awayTeamGoals: match.awayTeamGoals },
       { where: { id } },
     );
