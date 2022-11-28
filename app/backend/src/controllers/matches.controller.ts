@@ -24,4 +24,13 @@ export default class MatchesController {
       next(error);
     }
   }
+
+  public static async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      await MatchesService.update(Number(req.params.id));
+      return res.status(201).json({ message: 'Finished' });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

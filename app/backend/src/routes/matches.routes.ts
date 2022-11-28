@@ -15,4 +15,10 @@ route.post('/', (
   next: express.NextFunction,
 ) => MatchesController.insert(req, res, next));
 
+route.patch('/:id/finish', (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction,
+) => MatchesController.update(req, res, next));
+
 export default route;
