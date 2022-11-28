@@ -13,7 +13,7 @@ export default class UserController {
 
   public static async findRole(req: Request, res: Response, next: NextFunction) {
     try {
-      const role = await UsersService.findRole(req.headers.authorization as string);
+      const role = await UsersService.findRole(req.body.user.email);
       return res.status(200).json(role);
     } catch (error) {
       next(error);

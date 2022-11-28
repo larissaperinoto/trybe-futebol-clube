@@ -1,5 +1,4 @@
 import * as bcrypt from 'bcryptjs';
-import tokenValidate from '../utils/validations/token.validate';
 import User from '../database/models/user.model';
 import ILogin from '../interfaces/ILogin';
 import tokenGenerate from '../utils/tokenGenerate';
@@ -15,14 +14,11 @@ export default class UserService {
     throw new ErrorGenerate(401, 'Incorrect email or password');
   }
 
-  public static async findRole(token: string) {
-    const { email } = tokenValidate(token);
-    if (email) {
-      const userInformation = await User
-        .findOne({ where: { email } });
-      if (userInformation) {
-        return { role: userInformation.role };
-      }
+  public static async findRole(email: string) {
+    const userInformation = await User
+      .findOne({ where: { email } });
+    if (userInformation) {
+      return { role: userInformation.role };
     }
   }
 }

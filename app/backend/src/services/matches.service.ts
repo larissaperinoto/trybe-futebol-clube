@@ -1,7 +1,6 @@
 import Team from '../database/models/teams.model';
 import Match from '../database/models/matches.model';
 import IMatch from '../interfaces/IMatch';
-import tokenValidate from '../utils/validations/token.validate';
 import ErrorGenerate from '../utils/errorGenerate';
 
 type MatchGoals = { homeTeamGoals: string, awayTeamGoals: string };
@@ -32,23 +31,18 @@ export default class MatchesService {
     return matches;
   }
 
-  async insert(match: IMatch, token: string): Promise<IMatch> {
-    const { email } = tokenValidate(token);
-    if (email) {
-      const verifyTeamsIds = match.homeTeam === match.awayTeam;
-      if (verifyTeamsIds) {
-        throw new ErrorGenerate(422, 'It is not possible to create a match with two equal teams');
-      }
-      const homeTeamExists = await this._matchModel.findByPk(match.homeTeam);
-      const awayTeamExists = await this._matchModel.findByPk(match.awayTeam);
-      if (!homeTeamExists || !awayTeamExists) {
-        throw new ErrorGenerate(404, 'There is no team with such id!');
-      }
-      const matchInserted = await this._matchModel.create({ ...match, inProgress: true });
-      return matchInserted;
+  async insert(match: IMatch): Promise<IMatch> {
+    const verifyTeamsIds = match.homeTeam === match.awayTeam;
+    if (verifyTeamsIds) {
+      throw new ErrorGenerate(422, 'It is not possible to create a match with two equal teams');
     }
-
-    throw new ErrorGenerate(401, 'Token must be a valid token');
+    const homeTeamExists = await this._matchModel.findByPk(match.homeTeam);
+    const awayTeamExists = await this._matchModel.findByPk(match.awayTeam);
+    if (!homeTeamExists || !awayTeamExists) {
+      throw new ErrorGenerate(404, 'There is no team with such id!');
+    }
+    const matchInserted = await this._matchModel.create({ ...match, inProgress: true });
+    return matchInserted;
   }
 
   async matchIsOver(id: number): Promise<void> {

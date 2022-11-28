@@ -20,7 +20,7 @@ export default class MatchesController {
   insert: RequestHandler = async (req, res, next) => {
     try {
       const matchInserted = await matchesService
-        .insert(req.body, req.headers.authorization as string);
+        .insert(req.body);
       return res.status(201).json(matchInserted);
     } catch (error) {
       next(error);
