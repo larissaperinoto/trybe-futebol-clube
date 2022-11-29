@@ -2,6 +2,7 @@ import * as express from 'express';
 import usersRoutes from './routes/users.routes';
 import teamsRoutes from './routes/teams.routes';
 import matchesRoutes from './routes/matches.routes';
+import leaderboardRoutes from './routes/leaderboard.routes';
 import errorMiddleware from './middlewares/error.middleware';
 
 class App {
@@ -13,6 +14,7 @@ class App {
     this.config();
 
     // Não remover essa rota
+    this.app.use('/leaderboard', leaderboardRoutes);
     this.app.use('/matches', matchesRoutes);
     this.app.use('/login', usersRoutes);
     this.app.use('/teams', teamsRoutes);
