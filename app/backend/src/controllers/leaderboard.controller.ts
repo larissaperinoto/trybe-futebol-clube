@@ -4,8 +4,15 @@ import LeaderboardService from '../services/leaderboard.service';
 const leaderboardService = new LeaderboardService();
 
 export default class LeaderboardController {
-  getRatings: RequestHandler = async (req, res) => {
-    const ratings = await leaderboardService.getRatings();
-    return res.status(200).json(ratings);
+  getClassificationHome: RequestHandler = async (req, res) => {
+    const classification = await leaderboardService
+      .getClassification('home_team_goals', 'away_team_goals', 'home_team');
+    return res.status(200).json(classification);
+  };
+
+  getClassificationAway: RequestHandler = async (req, res) => {
+    const classification = await leaderboardService
+      .getClassification('away_team_goals', 'home_team_goals', 'away_team');
+    return res.status(200).json(classification);
   };
 }

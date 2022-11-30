@@ -5,6 +5,7 @@ const route = express.Router();
 
 const leaderboardController = new LeaderboardController();
 
-route.get('/home', leaderboardController.getRatings);
+route.get('/home', leaderboardController.getClassificationHome);
+route.get('/away', leaderboardController.getClassificationAway);
 
 export default route;
