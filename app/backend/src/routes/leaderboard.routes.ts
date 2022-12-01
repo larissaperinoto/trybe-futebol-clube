@@ -7,5 +7,6 @@ const leaderboardController = new LeaderboardController();
 
 route.get('/home', leaderboardController.getClassificationHome);
 route.get('/away', leaderboardController.getClassificationAway);
+route.get('/', leaderboardController.getGeneralClassification);
 
 export default route;

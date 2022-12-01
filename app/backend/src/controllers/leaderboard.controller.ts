@@ -15,4 +15,10 @@ export default class LeaderboardController {
       .getClassification('away_team_goals', 'home_team_goals', 'away_team');
     return res.status(200).json(classification);
   };
+
+  getGeneralClassification:RequestHandler = async (req, res) => {
+    const generalClassification = await leaderboardService.getGeneralClassification();
+    console.log(generalClassification);
+    return res.status(200).json(generalClassification);
+  };
 }
