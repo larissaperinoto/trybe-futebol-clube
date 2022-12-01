@@ -18,7 +18,6 @@ export default class LeaderboardController {
 
   getGeneralClassification:RequestHandler = async (req, res) => {
     const generalClassification = await leaderboardService.getGeneralClassification();
-    console.log(generalClassification);
     return res.status(200).json(generalClassification);
   };
 }
