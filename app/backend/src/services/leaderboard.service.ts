@@ -3,24 +3,22 @@ import ILeaderboard from '../interfaces/ILeaderboard';
 import sequelizeModel from '../database/models';
 import query from '../utils/queryGenerate';
 import leaderboardGenerate from '../utils/leaderboardGenerate';
+import { teamGoals, reference, ILeaderboardService } from '../interfaces/ILeaderboardService';
 
-type teamGoals = 'home_team_goals' | 'away_team_goals';
-type reference = 'home_team' | 'away_team';
-
-export default class LeaderboardService {
+export default class LeaderboardService implements ILeaderboardService {
   constructor(private _model = sequelizeModel) {}
 
   async getClassification(
     team1: teamGoals,
     team2: teamGoals,
-    reference: reference,
+    teamReference: reference,
   ): Promise<ILeaderboard[]> {
     const classification: ILeaderboard[] = await this._model
       .query(
         query
           .replace(/:team1/g, team1)
           .replace(/:team2/g, team2)
-          .replace(/:reference/g, reference),
+          .replace(/:reference/g, teamReference),
         {
           type: QueryTypes.SELECT,
         },
@@ -29,13 +27,16 @@ export default class LeaderboardService {
     return classification;
   }
 
-  async getGeneralClassification() {
+  async getGeneralClassification(): Promise<ILeaderboard[]> {
     const homeClassification = await this
       .getClassification('home_team_goals', 'away_team_goals', 'home_team');
     const awayClassification = await this
       .getClassification('away_team_goals', 'home_team_goals', 'away_team');
 
-    const classification = leaderboardGenerate(homeClassification, awayClassification);
-    return classification as unknown as ILeaderboard[];
+    const classification: ILeaderboard[] = leaderboardGenerate(
+      homeClassification,
+      awayClassification,
+    );
+    return classification;
   }
 }
