@@ -1,7 +1,7 @@
 import * as express from 'express';
 import usersRoutes from './routes/user.routes';
 import teamsRoutes from './routes/team.routes';
-import matchesRoutes from './routes/matches.routes';
+import matchesRoutes from './routes/match.routes';
 import leaderboardRoutes from './routes/leaderboard.routes';
 import errorMiddleware from './middlewares/error.middleware';
 
