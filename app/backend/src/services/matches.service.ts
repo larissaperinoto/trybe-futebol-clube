@@ -6,7 +6,7 @@ import ErrorGenerate from '../utils/errorGenerate';
 type MatchGoals = { homeTeamGoals: string, awayTeamGoals: string };
 
 export default class MatchesService {
-  constructor(private _matchModel = Match) {}
+  constructor(private _matchModel = Match, private _teamModel = Team) {}
 
   async findAll(): Promise<IMatch[]> {
     const matches = await this._matchModel.findAll({
@@ -36,8 +36,8 @@ export default class MatchesService {
     if (verifyTeamsIds) {
       throw new ErrorGenerate(422, 'It is not possible to create a match with two equal teams');
     }
-    const homeTeamExists = await this._matchModel.findByPk(match.homeTeam);
-    const awayTeamExists = await this._matchModel.findByPk(match.awayTeam);
+    const homeTeamExists = await this._teamModel.findByPk(match.homeTeam);
+    const awayTeamExists = await this._teamModel.findByPk(match.awayTeam);
     if (!homeTeamExists || !awayTeamExists) {
       throw new ErrorGenerate(404, 'There is no team with such id!');
     }

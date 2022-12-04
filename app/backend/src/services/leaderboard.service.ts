@@ -15,7 +15,7 @@ export default class LeaderboardService {
     team2: teamGoals,
     reference: reference,
   ): Promise<ILeaderboard[]> {
-    const classification = await this._model
+    const classification: ILeaderboard[] = await this._model
       .query(
         query
           .replace(/:team1/g, team1)
@@ -26,7 +26,7 @@ export default class LeaderboardService {
         },
       );
 
-    return classification as unknown as ILeaderboard[];
+    return classification;
   }
 
   async getGeneralClassification() {
@@ -36,7 +36,6 @@ export default class LeaderboardService {
       .getClassification('away_team_goals', 'home_team_goals', 'away_team');
 
     const classification = leaderboardGenerate(homeClassification, awayClassification);
-    console.log('LENGHT', classification.length);
     return classification as unknown as ILeaderboard[];
   }
 }

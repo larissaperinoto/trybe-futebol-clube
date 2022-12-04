@@ -94,8 +94,8 @@ describe('Testa a rota /login', () => {
     });
   });
 
-  describe('Testa método GET na rota /login/validate', () => {
-    /* it('Usuário está autorizado corretamente', async () => {
+  /* describe('Testa método GET na rota /login/validate', () => {
+    it('Usuário está autorizado corretamente', async () => {
 
       sinon.stub(jsonwebtoken, 'verify').returns();
       sinon.stub(User, "findOne").resolves(userMock as unknown as User);
@@ -107,17 +107,6 @@ describe('Testa a rota /login', () => {
 
       expect(response.status).to.be.equal(200);
       expect(response.body).to.be.deep.equal({ role: userMock.role });
-    }); */
-
-    it('Usuário não tem autorização válida', async () => {
-      sinon.stub(jsonwebtoken, 'verify').resolves();
-      const response = await chai
-          .request(app)
-          .get('/login/validate')
-          .set('authorization', 'toksdfsdfsfd234234en');
-
-      expect(response.status).to.be.equal(401);
-      expect(response.body).to.be.deep.equal({ message: 'Unauthorized user' });
     });
-  });
+  }); */
 });
