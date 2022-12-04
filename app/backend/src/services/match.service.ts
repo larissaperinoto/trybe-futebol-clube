@@ -1,5 +1,5 @@
 import Team from '../database/models/team.model';
-import Match from '../database/models/matches.model';
+import Match from '../database/models/match.model';
 import IMatch from '../interfaces/IMatch';
 import ErrorGenerate from '../utils/errorGenerate';
 import { IMatchService, MatchGoals } from '../interfaces/IMatchService';
