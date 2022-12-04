@@ -93,20 +93,4 @@ describe('Testa a rota /login', () => {
       expect(response.body).to.be.deep.equal({ message: 'Incorrect email or password' });
     });
   });
-
-  /* describe('Testa método GET na rota /login/validate', () => {
-    it('Usuário está autorizado corretamente', async () => {
-
-      sinon.stub(jsonwebtoken, 'verify').returns();
-      sinon.stub(User, "findOne").resolves(userMock as unknown as User);
-
-      const response = await chai
-          .request(app)
-          .get('/login/validate')
-          .set('authorization', token);
-
-      expect(response.status).to.be.equal(200);
-      expect(response.body).to.be.deep.equal({ role: userMock.role });
-    });
-  }); */
 });

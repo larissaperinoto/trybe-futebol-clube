@@ -8,7 +8,7 @@ import matchesMock from './mocks/matches.mock';
 
 import { Response } from 'superagent';
 import Match from '../database/models/matches.model';
-import Team from '../database/models/teams.model'
+import Team from '../database/models/team.model'
 import IMatch from '../interfaces/IMatch';
 import * as jsonwebtoken from 'jsonwebtoken';
 
