@@ -8,11 +8,11 @@ import { teamGoals, reference, ILeaderboardService } from '../interfaces/ILeader
 export default class LeaderboardService implements ILeaderboardService {
   constructor(private _model = sequelizeModel) {}
 
-  async getClassification(
+  getClassification = async (
     team1: teamGoals,
     team2: teamGoals,
     teamReference: reference,
-  ): Promise<ILeaderboard[]> {
+  ): Promise<ILeaderboard[]> => {
     const classification: ILeaderboard[] = await this._model
       .query(
         query
@@ -25,9 +25,9 @@ export default class LeaderboardService implements ILeaderboardService {
       );
 
     return classification;
-  }
+  };
 
-  async getGeneralClassification(): Promise<ILeaderboard[]> {
+  getGeneralClassification = async (): Promise<ILeaderboard[]> => {
     const homeClassification = await this
       .getClassification('home_team_goals', 'away_team_goals', 'home_team');
     const awayClassification = await this
@@ -38,5 +38,5 @@ export default class LeaderboardService implements ILeaderboardService {
       awayClassification,
     );
     return classification;
-  }
+  };
 }
