@@ -1,5 +1,5 @@
 import * as express from 'express';
-import usersRoutes from './routes/users.routes';
+import usersRoutes from './routes/user.routes';
 import teamsRoutes from './routes/teams.routes';
 import matchesRoutes from './routes/matches.routes';
 import leaderboardRoutes from './routes/leaderboard.routes';
