@@ -58,8 +58,8 @@
 }
 
 .user-login-area form button {
-  background: #003be5;
-  border: 1px #003be5 solid;
+  background: #171818;
+  border: 1px transparent solid;
   border-radius: 8px;
   color: white;
   cursor: pointer;
@@ -74,7 +74,7 @@
 }
 
 .user-login-area form button:hover {
-  background: #002799;
+  background: #27451f;
 }
 
 .user-login-area form p {
