@@ -76,6 +76,9 @@ Navegue até a raíz do projeto.
     
 </details>
 
+![Captura de tela de 2022-12-04 21-57-51](https://user-images.githubusercontent.com/98956659/205527529-84b01a9f-812f-49fd-a48c-0a12e172b633.png)
+
+
 ---
  
 Desenvolvido por [Larissa Perinoto](www.linkedin.com/in/larissaperinoto), © 2022.
