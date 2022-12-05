@@ -20,7 +20,8 @@ Trybe Futebol Clube é uma aplicação Full Stack que permite ao usuário ter ac
     <img src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"/>
     <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express"/>
     <img src="https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white" alt="Sequelize"/>
-    <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white" alt="jwt"/> 
+    <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white" alt="jwt"/>
+    <img src="https://img.shields.io/badge/Mocha-8D6748?style=for-the-badge&logo=Mocha&logoColor=white" alt="mocha"/>
 </div>
 
 <br>
@@ -41,6 +42,14 @@ Na elaboração deste projeto utilizou-se as seguintes ferramentas:
 - [MySQL](https://www.mysql.com/)
 - [JWT](https://jwt.io/)
 - Arquitetura Model-Service-Controller
+
+### Testes em Back-end
+- [Mocha](https://mochajs.org/)
+- [Chai](https://www.chaijs.com/)
+- [Sinon](https://sinonjs.org/)
+
+### Alinhamento de código
+- [ESlint](https://eslint.org/)
 
 **Obs.:** Os arquivos presentes na pasta front-end foram disponibilizados pela [Trybe](https://www.betrybe.com/) para a realização deste projeto.
 
@@ -72,6 +81,10 @@ Navegue até a raíz do projeto.
   Abra o terminal do container <strong>app_backend</strong> para verificar o servidor através dos logs do container.
 
       docker-compose logs backend -f
+  
+  Para executar os testes do back-end, abra um terminal local na pasta back-end e rode o comando abaixo.
+  
+     npm test
 
     
 </details>
